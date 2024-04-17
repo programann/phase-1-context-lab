@@ -9,7 +9,7 @@
  for you to use if you need it!
  */
 
- const wagesFor = function () {
+const allWagesFor = function () {
     const eligibleDates = this.timeInEvents.map(function (e) {
         return e.date
     })
@@ -51,7 +51,7 @@ function createEmployeeRecord(array) {
   function createTimeOutEvent(dateStamp) {
     const [date, hour] = dateStamp.split(' ');
     const timeOutEvent = {
-      type: 'TimeOut',
+      type: '',
       hour: parseInt(hour),
       date,
     };
@@ -85,7 +85,7 @@ function createEmployeeRecord(array) {
     let totalPayroll = 0;
   
     employeeRecords.forEach((employee) => {
-      totalPayroll += wagesFor.call(employee);
+      totalPayroll += allWagesFor.call(employee);
     });
   
     return totalPayroll;
