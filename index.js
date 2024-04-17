@@ -51,7 +51,7 @@ function createEmployeeRecord(array) {
   function createTimeOutEvent(dateStamp) {
     const [date, hour] = dateStamp.split(' ');
     const timeOutEvent = {
-      type: '',
+      type: 'TimeOut',
       hour: parseInt(hour),
       date,
     };
@@ -88,7 +88,7 @@ function createEmployeeRecord(array) {
       totalPayroll += allWagesFor.call(employee);
     });
   
-    return totalPayroll;
+   ;
   }
   
 
