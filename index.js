@@ -88,7 +88,7 @@ function createEmployeeRecord(array) {
       totalPayroll += allWagesFor.call(employee);
     });
   
-   ;
+    return totalPayroll;
   }
   
 
