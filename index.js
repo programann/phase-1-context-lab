@@ -9,7 +9,7 @@
  for you to use if you need it!
  */
 
-const allWagesFor = function () {
+ const wagesFor = function () {
     const eligibleDates = this.timeInEvents.map(function (e) {
         return e.date
     })
@@ -20,4 +20,75 @@ const allWagesFor = function () {
 
     return payable
 }
+
+function createEmployeeRecord(array) {
+    const [firstName, familyName, title, payPerHour] = array;
+    return {
+      firstName,
+      familyName,
+      title,
+      payPerHour,
+      timeInEvents: [],
+      timeOutEvents: [],
+    };
+  }
+  
+  function findEmployeeByFirstName(collection, firstNameString) {
+    return collection.find((employee) => employee.firstName === firstNameString);
+  }
+  
+  function createTimeInEvent(dateStamp) {
+    const [date, hour] = dateStamp.split(' ');
+    const timeInEvent = {
+      type: 'TimeIn',
+      hour: parseInt(hour),
+      date,
+    };
+    this.timeInEvents.push(timeInEvent);
+    return this;
+  }
+  
+  function createTimeOutEvent(dateStamp) {
+    const [date, hour] = dateStamp.split(' ');
+    const timeOutEvent = {
+      type: 'TimeOut',
+      hour: parseInt(hour),
+      date,
+    };
+    this.timeOutEvents.push(timeOutEvent);
+    return this;
+  }
+  
+  function hoursWorkedOnDate(date) {
+    const timeInEvent = this.timeInEvents.find((event) => event.date === date);
+    const timeOutEvent = this.timeOutEvents.find((event) => event.date === date);
+  
+    if (timeInEvent && timeOutEvent) {
+      const timeIn = timeInEvent.hour;
+      const timeOut = timeOutEvent.hour;
+      const hoursWorked = (timeOut - timeIn) / 100;
+      return hoursWorked;
+    }
+  }
+  
+  function wagesEarnedOnDate(date) {
+    const hoursWorked = hoursWorkedOnDate.call(this, date);
+    const amountOwed = hoursWorked * this.payPerHour;
+    return amountOwed;
+  }
+  
+  function createEmployeeRecords(array) {
+    return array.map((emp) => createEmployeeRecord(emp));
+  }
+  
+  function calculatePayroll(employeeRecords) {
+    let totalPayroll = 0;
+  
+    employeeRecords.forEach((employee) => {
+      totalPayroll += wagesFor.call(employee);
+    });
+  
+    return totalPayroll;
+  }
+  
 
